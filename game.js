@@ -885,12 +885,12 @@ function updatePlayer(
     let steering = 0;
 
     if (left) {
-        steering -= 1;
-    }
+    steering += 1;
+}
 
-    if (right) {
-        steering += 1;
-    }
+if (right) {
+    steering -= 1;
+}
 
 
     if (
@@ -978,7 +978,7 @@ function updatePlayer(
         player.z;
 
     kart.rotation.y =
-    -player.angle;
+    player.angle;
 
 
     // --------------------------------------------------------
