@@ -923,7 +923,7 @@ if (right) {
             deltaTime;
     }
 
-    // --------------------------------------------------------
+   // --------------------------------------------------------
 // GRASS SLOWDOWN
 // --------------------------------------------------------
 
@@ -953,31 +953,31 @@ const distanceFromTrack =
 const roadHalfWidth =
     TRACK_WIDTH / 2;
 
-const grassBuffer =
-    5;
-
 const onGrass =
     distanceFromTrack >
     roadHalfWidth;
 
 if (onGrass) {
 
-    // Strongly reduce acceleration on grass
-    player.speed *=
-        Math.pow(
-            0.15,
-            deltaTime
-        );
+    // Gradually pull the speed toward the grass speed
+    const grassSpeed =
+        8;
 
-    // Prevent the kart from going too fast
-    player.speed =
-        THREE.MathUtils.clamp(
-            player.speed,
-            -5,
-            8
-        );
+    const grassSlowdown =
+        2.5;
+
+    if (player.speed > grassSpeed) {
+
+        player.speed =
+            Math.max(
+                grassSpeed,
+                player.speed -
+                grassSlowdown *
+                deltaTime
+            );
+    }
 }
-
+    
     // --------------------------------------------------------
     // SPEED LIMIT
     // --------------------------------------------------------
