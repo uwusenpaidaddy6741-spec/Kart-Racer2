@@ -923,7 +923,7 @@ if (right) {
             deltaTime;
     }
 
-   // --------------------------------------------------------
+// --------------------------------------------------------
 // GRASS SLOWDOWN
 // --------------------------------------------------------
 
@@ -953,28 +953,38 @@ const distanceFromTrack =
 const roadHalfWidth =
     TRACK_WIDTH / 2;
 
+// How far outside the road counts as grass
+const grassBuffer = 2;
+
 const onGrass =
     distanceFromTrack >
-    roadHalfWidth;
+    roadHalfWidth + grassBuffer;
 
 if (onGrass) {
 
-    // Gradually pull the speed toward the grass speed
-    const grassSpeed =
-        8;
+    // Target speed while driving on grass
+    const grassMaxSpeed = 8;
 
-    const grassSlowdown =
-        2.5;
+    // How quickly speed falls toward the grass speed
+    const grassSlowdownRate = 12;
 
-    if (player.speed > grassSpeed) {
+    if (player.speed > grassMaxSpeed) {
 
         player.speed =
             Math.max(
-                grassSpeed,
+                grassMaxSpeed,
                 player.speed -
-                grassSlowdown *
+                grassSlowdownRate *
                 deltaTime
             );
+    }
+
+    // Also make acceleration weaker on grass
+    if (player.speed < grassMaxSpeed) {
+
+        player.speed +=
+            4 *
+            deltaTime;
     }
 }
     
