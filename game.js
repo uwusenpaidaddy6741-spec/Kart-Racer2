@@ -978,7 +978,7 @@ function updatePlayer(
         player.z;
 
     kart.rotation.y =
-        player.angle;
+    -player.angle;
 
 
     // --------------------------------------------------------
